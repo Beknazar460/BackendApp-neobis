@@ -1,0 +1,5 @@
+CREATE TABLE todo (
+    id BIGINT NOT NULL PRIMARY KEY,
+    title VARCHAR(66) NOT NULL,
+    completed BOOLEAN NOT NULL
+);
