@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserService {
 
     void createUser(UserEntity user) throws UserAlreadyExistException;
-    UserModel getOneUser(Long id) throws UserNotFoundException;
+    UserModel getUserId(Long id) throws UserNotFoundException;
     Long deleteUser(Long id);
 
 }

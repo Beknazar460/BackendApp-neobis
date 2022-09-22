@@ -11,12 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepo userRepo;
 
-
     @Override
     public void createUser(UserEntity user) throws UserAlreadyExistException {
+        int nameLength = user.getUserName().length();
+
+        for (int i = 0; i < nameLength; i++) {
+            if (user.getUserName().charAt(i) == ' ') throw new UserAlreadyExistException("В имени не должно присутствовать пробелов");
+        }
         if (userRepo.findByUserName(user.getUserName()) != null) {
             throw new UserAlreadyExistException("Пользователь с таким именем уже существует!");
         }
@@ -24,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel getOneUser(Long id) throws UserNotFoundException {
+    public UserModel getUserId(Long id) throws UserNotFoundException {
         UserEntity userEntity = userRepo.findById(id).get();
         if (userEntity == null) {
             throw new UserNotFoundException("Пользователь не найден");

@@ -18,6 +18,7 @@ public class UserModel {
     private Long id;
     private String userName;
     private List<ToDoModel> toDoModels;
+
     public static UserModel toModel(UserEntity userEntity) {
         UserModel userModel = new UserModel();
         userModel.setUserName(userEntity.getUserName());

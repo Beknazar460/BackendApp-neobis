@@ -15,22 +15,22 @@ public class UserController {
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    @GetMapping
-        public ResponseEntity getUserOne(@RequestParam Long id) {
+    @GetMapping("/get-user-id")
+        public ResponseEntity getUserId(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok(userServiceImpl.getOneUser(id));
+            return ResponseEntity.ok(userServiceImpl.getUserId(id));
         } catch (UserNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ошибка, пользователь не найден");
+            return ResponseEntity.badRequest().body("Ошибка");
         }
     }
 
-    @PostMapping
+    @PostMapping("/create-user")
     public ResponseEntity createUser(@RequestBody UserEntity userEntity) {
         try {
             userServiceImpl.createUser(userEntity);
-            return ResponseEntity.ok().body("Пользователь создан");
+            return ResponseEntity.ok().body("Пользователь создан: " + userEntity.getUserName());
         } catch (UserAlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -38,10 +38,10 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    @DeleteMapping("/delete-user")
+    public ResponseEntity deleteUser(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok(userServiceImpl.deleteUser(id));
+            return ResponseEntity.ok("Пользователь удален под номером: " + userServiceImpl.deleteUser(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
         }
