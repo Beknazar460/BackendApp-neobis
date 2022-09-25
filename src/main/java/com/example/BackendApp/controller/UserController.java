@@ -4,19 +4,23 @@ import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.exceptions.UserAlreadyExistException;
 import com.example.BackendApp.exceptions.UserNotFoundException;
 import com.example.BackendApp.service.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
+@Tag(name = "Пользовательский контроллер", description = "контроллер для работы с данными пользователя")
 public class UserController {
-
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    @GetMapping("/get-user-id")
-        public ResponseEntity getUserId(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    @Operation(summary = "Получение пользователя")
+        public ResponseEntity getUserId(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(userServiceImpl.getUserId(id));
         } catch (UserNotFoundException e) {
@@ -26,7 +30,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("/create-user")
+    @PostMapping("/create")
+    @Operation(summary = "Создать пользователя")
     public ResponseEntity createUser(@RequestBody UserEntity userEntity) {
         try {
             userServiceImpl.createUser(userEntity);
@@ -38,8 +43,9 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/delete-user")
-    public ResponseEntity deleteUser(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Удаление пользователя")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
         try {
             return ResponseEntity.ok("Пользователь удален под номером: " + userServiceImpl.deleteUser(id));
         } catch (Exception e) {

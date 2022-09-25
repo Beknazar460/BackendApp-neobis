@@ -17,10 +17,12 @@ public class UserModel {
 
     private Long id;
     private String userName;
+    private String email;
     private List<ToDoModel> toDoModels;
 
     public static UserModel toModel(UserEntity userEntity) {
         UserModel userModel = new UserModel();
+        userModel.setEmail(userEntity.getEmail());
         userModel.setUserName(userEntity.getUserName());
         userModel.setId(userEntity.getId());
         userModel.setToDoModels(userEntity.getToDoEntities().stream().map(ToDoModel::toDoModel).collect(Collectors.toList()));

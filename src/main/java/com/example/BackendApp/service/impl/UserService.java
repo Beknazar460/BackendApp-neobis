@@ -4,7 +4,6 @@ import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.exceptions.UserAlreadyExistException;
 import com.example.BackendApp.exceptions.UserNotFoundException;
 import com.example.BackendApp.model.UserModel;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserService {
 
