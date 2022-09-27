@@ -4,24 +4,21 @@ import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.exceptions.UserAlreadyExistException;
 import com.example.BackendApp.exceptions.UserNotFoundException;
 import com.example.BackendApp.service.UserServiceImpl;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/users")
-@Tag(name = "Пользовательский контроллер", description = "контроллер для работы с данными пользователя")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserServiceImpl userServiceImpl;
 
     @GetMapping("/{id}")
-    @Operation(summary = "Получение пользователя")
+    @PreAuthorize("hasAuthority('users:read')")
         public ResponseEntity getUserId(@PathVariable Long id) {
         try {
-            System.out.println("афыаыф");
             return ResponseEntity.ok(userServiceImpl.getUserId(id));
         } catch (UserNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -30,8 +27,20 @@ public class UserController {
         }
     }
 
+    @GetMapping()
+    @PreAuthorize("hasAuthority('users:read')")
+    public ResponseEntity getUserName(@RequestParam String userName) {
+        try {
+            return ResponseEntity.ok(userServiceImpl.getUserName(userName));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибка");
+        }
+    }
+
     @PostMapping
-    @Operation(summary = "Создать пользователя")
+    @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity createUser(@RequestBody UserEntity userEntity) {
         try {
             userServiceImpl.createUser(userEntity);
@@ -44,7 +53,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Удаление пользователя")
+    @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         try {
             return ResponseEntity.ok("Пользователь удален под номером: " + userServiceImpl.deleteUser(id));

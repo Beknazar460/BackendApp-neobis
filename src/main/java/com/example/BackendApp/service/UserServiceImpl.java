@@ -9,6 +9,8 @@ import com.example.BackendApp.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -31,6 +33,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel getUserId(Long id) throws UserNotFoundException {
         UserEntity userEntity = userRepo.findById(id).get();
+        if (userEntity == null) {
+            throw new UserNotFoundException("Пользователь не найден");
+        }
+        return UserModel.toModel(userEntity);
+    }
+
+    @Override
+    public UserModel getUserName(String name) throws UserNotFoundException {
+        UserEntity userEntity = userRepo.findByUserName(name);
         if (userEntity == null) {
             throw new UserNotFoundException("Пользователь не найден");
         }
