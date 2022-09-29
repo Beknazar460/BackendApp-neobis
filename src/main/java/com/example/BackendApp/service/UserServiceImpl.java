@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         if (userEntity == null) {
             throw new UserNotFoundException("Пользователь не найден");
         }
-        return UserModel.toModel(userEntity);
+        return UserModel.toUser(userEntity);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         if (userEntity == null) {
             throw new UserNotFoundException("Пользователь не найден");
         }
-        return UserModel.toModel(userEntity);
+        return UserModel.toUser(userEntity);
     }
 
     @Override

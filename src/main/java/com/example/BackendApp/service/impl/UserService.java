@@ -5,7 +5,6 @@ import com.example.BackendApp.exceptions.UserAlreadyExistException;
 import com.example.BackendApp.exceptions.UserNotFoundException;
 import com.example.BackendApp.model.UserModel;
 
-import java.util.HashSet;
 
 public interface UserService {
 

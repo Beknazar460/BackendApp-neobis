@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('users:read')")
-        public ResponseEntity getUserId(@PathVariable Long id) {
+        private ResponseEntity getUserId(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(userServiceImpl.getUserId(id));
         } catch (UserNotFoundException e) {
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping()
     @PreAuthorize("hasAuthority('users:read')")
-    public ResponseEntity getUserName(@RequestParam String userName) {
+    private ResponseEntity getUserName(@RequestParam String userName) {
         try {
             return ResponseEntity.ok(userServiceImpl.getUserName(userName));
         } catch (UserNotFoundException e) {
@@ -41,7 +41,7 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('users:write')")
-    public ResponseEntity createUser(@RequestBody UserEntity userEntity) {
+    private ResponseEntity createUser(@RequestBody UserEntity userEntity) {
         try {
             userServiceImpl.createUser(userEntity);
             return ResponseEntity.ok().body("Пользователь создан: " + userEntity.getUserName());
@@ -54,7 +54,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('users:write')")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    private ResponseEntity deleteUser(@PathVariable Long id) {
         try {
             return ResponseEntity.ok("Пользователь удален под номером: " + userServiceImpl.deleteUser(id));
         } catch (Exception e) {

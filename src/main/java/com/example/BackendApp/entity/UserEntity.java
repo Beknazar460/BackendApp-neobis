@@ -28,5 +28,5 @@ public class UserEntity {
     private Status status;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<ToDoEntity> toDoEntities;
+    private List<OrderEntity> orderEntities;
 }
