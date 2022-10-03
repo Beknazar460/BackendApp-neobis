@@ -3,6 +3,7 @@ package com.example.BackendApp.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -18,5 +19,8 @@ public class LapTopEntity {
     private Long id;
     private String title;
     private String price;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lapTop")
+    private List<OrderEntity> orderEntity;
 
 }

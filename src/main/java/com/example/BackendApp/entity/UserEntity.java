@@ -1,7 +1,5 @@
 package com.example.BackendApp.entity;
 
-import com.example.BackendApp.model.Role;
-import com.example.BackendApp.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +22,6 @@ public class UserEntity {
     private String email;
     private String userName;
     private String userPass;
-    private Role role;
-    private Status status;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<OrderEntity> orderEntities;

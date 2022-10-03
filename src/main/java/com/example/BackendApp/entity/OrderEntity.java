@@ -25,9 +25,9 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
+
     @ManyToOne
     @JoinColumn(name = "laptops_id")
     private LapTopEntity lapTop;
-
 
 }

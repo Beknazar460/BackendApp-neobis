@@ -1,64 +1,48 @@
 package com.example.BackendApp.controller;
 
 import com.example.BackendApp.entity.UserEntity;
-import com.example.BackendApp.exceptions.UserAlreadyExistException;
-import com.example.BackendApp.exceptions.UserNotFoundException;
+import com.example.BackendApp.model.UserModel;
 import com.example.BackendApp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/users")
-public class UserController {
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+import java.util.List;
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('users:read')")
-        private ResponseEntity getUserId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(userServiceImpl.getUserId(id));
-        } catch (UserNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ошибка");
-        }
+@RestController
+@RequestMapping("/api/v1/users")
+public class UserController {
+
+    private final UserServiceImpl userServiceImpl;
+
+    @Autowired
+    public UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping()
-    @PreAuthorize("hasAuthority('users:read')")
-    private ResponseEntity getUserName(@RequestParam String userName) {
-        try {
-            return ResponseEntity.ok(userServiceImpl.getUserName(userName));
-        } catch (UserNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ошибка");
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserId(@PathVariable Long id) {
+        return userServiceImpl.getUserId(id);
+    }
+
+    @GetMapping
+    public List<UserEntity> getAllUsers() {
+        return userServiceImpl.getAllUsers();
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('users:write')")
-    private ResponseEntity createUser(@RequestBody UserEntity userEntity) {
-        try {
-            userServiceImpl.createUser(userEntity);
-            return ResponseEntity.ok().body("Пользователь создан: " + userEntity.getUserName());
-        } catch (UserAlreadyExistException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ошибка");
-        }
+    public ResponseEntity<String> createUser(@RequestBody UserEntity userEntity) {
+        return userServiceImpl.createUser(userEntity);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id,
+                                         @RequestBody UserEntity user) {
+        return userServiceImpl.updateUser(id, user);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('users:write')")
-    private ResponseEntity deleteUser(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok("Пользователь удален под номером: " + userServiceImpl.deleteUser(id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ошибка");
-        }
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        return userServiceImpl.deleteUser(id);
     }
 }
