@@ -33,7 +33,7 @@ public class UserController {
     )
     public ResponseEntity<?> getUserId(@PathVariable
                                            @Parameter(description = "Идентификатор пользователя")
-                                           Long id) {
+                                                Long id) {
         return userServiceImpl.getUserId(id);
     }
 
@@ -51,9 +51,7 @@ public class UserController {
             summary = "Создание пользователя",
             description = "Позволяет создать пользователя введя его данные"
     )
-    public ResponseEntity<String> createUser(@RequestBody
-                                                 @Parameter(description = "Сущность пользователя, заполните данные пользователя")
-                                                    UserEntity userEntity) {
+    public ResponseEntity<String> createUser(@RequestBody UserEntity userEntity) {
         return userServiceImpl.createUser(userEntity);
     }
 
@@ -65,9 +63,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(@PathVariable
                                             @Parameter(description = "Идентификатор пользователя")
                                                 Long id,
-                                         @RequestBody
-                                            @Parameter(description = "Сущность пользователя, данные для изменения")
-                                                UserEntity user) {
+                                         @RequestBody UserEntity user) {
         return userServiceImpl.updateUser(id, user);
     }
 

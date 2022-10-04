@@ -51,9 +51,9 @@ public class LapTopServiceImpl implements LapTopService {
 
     @Override
     public ResponseEntity<?> getLapTopId(Long id) {
-        LapTopEntity lapTopEntity = lapTopRepo.findById(id).get();
-        if (lapTopRepo.existsById(id)) return ResponseEntity.ok(LapTopModel.toLapTop(lapTopEntity));
-        else return new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.NOT_FOUND);
+            LapTopEntity lapTopEntity = lapTopRepo.findById(id).get();
+            if (lapTopRepo.existsById(id)) return ResponseEntity.ok(LapTopModel.toLapTop(lapTopEntity));
+            else return new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.NOT_FOUND);
     }
 
     @Override
