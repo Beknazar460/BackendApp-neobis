@@ -18,6 +18,11 @@ public class LapTopController {
         this.lapTopService = lapTopService;
     }
 
+    @GetMapping
+    private ResponseEntity getAllLapTops() {
+        return ResponseEntity.ok(lapTopService.getALlLapTops());
+    }
+
     @GetMapping("/{id}")
     private ResponseEntity getLaptopById(@PathVariable Long id) {
        return lapTopService.getLapTopId(id);

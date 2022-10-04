@@ -1,17 +1,13 @@
 package com.example.BackendApp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @Table(name = "users")
 public class UserEntity {

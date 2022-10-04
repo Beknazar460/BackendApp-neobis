@@ -1,8 +1,10 @@
 package com.example.BackendApp.controller;
 
 import com.example.BackendApp.entity.UserEntity;
-import com.example.BackendApp.model.UserModel;
 import com.example.BackendApp.service.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@Tag(
+        name = "Контроллер для управления записей пользователя",
+        description = "В этом контроллере вы сможете добавлять, удалять, получать, а также обновлять данные пользователей"
+)
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
@@ -21,28 +27,58 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserId(@PathVariable Long id) {
+    @Operation(
+            summary = "Получение пользователя",
+            description = "Позволяет получать пользователя по идентификатору пользователя"
+    )
+    public ResponseEntity<?> getUserId(@PathVariable
+                                           @Parameter(description = "Идентификатор пользователя")
+                                           Long id) {
         return userServiceImpl.getUserId(id);
     }
 
     @GetMapping
+    @Operation(
+            summary = "Получение всех пользователей",
+            description = "Позволяет получить всех пользователей"
+    )
     public List<UserEntity> getAllUsers() {
         return userServiceImpl.getAllUsers();
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody UserEntity userEntity) {
+    @Operation(
+            summary = "Создание пользователя",
+            description = "Позволяет создать пользователя введя его данные"
+    )
+    public ResponseEntity<String> createUser(@RequestBody
+                                                 @Parameter(description = "Сущность пользователя, заполните данные пользователя")
+                                                    UserEntity userEntity) {
         return userServiceImpl.createUser(userEntity);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id,
-                                         @RequestBody UserEntity user) {
+    @Operation(
+            summary = "Обновление пользователя",
+            description = "Позволяет изменить данные пользователя по идентификатору"
+    )
+    public ResponseEntity<?> updateUser(@PathVariable
+                                            @Parameter(description = "Идентификатор пользователя")
+                                                Long id,
+                                         @RequestBody
+                                            @Parameter(description = "Сущность пользователя, данные для изменения")
+                                                UserEntity user) {
         return userServiceImpl.updateUser(id, user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    @Operation(
+            summary = "Удаление пользователя",
+            description = "Позволяет удалить пользователя по идентификатору"
+    )
+    public ResponseEntity deleteUser(@PathVariable
+                                         @Parameter(description = "Идентификатор пользователя")
+                                            Long id) {
         return userServiceImpl.deleteUser(id);
     }
 }

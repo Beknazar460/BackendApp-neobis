@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LapTopServiceImpl implements LapTopService {
 
@@ -25,14 +27,14 @@ public class LapTopServiceImpl implements LapTopService {
         try {
             LapTopEntity lapTopEntity = new LapTopEntity();
             if (lapTopRepo.findByTitle(lapTopModel.getTitle()) != null) {
-                return new ResponseEntity<String>("Товар уже существует", HttpStatus.BAD_REQUEST);
+                return ResponseEntity.badRequest().body("Товар уже существует");
             }
             lapTopEntity.setTitle(lapTopModel.getTitle());
             lapTopEntity.setPrice(lapTopModel.getPrice());
             lapTopRepo.save(lapTopEntity);
-            return new ResponseEntity<String>("Товар успешно создан", HttpStatus.OK);
+            return ResponseEntity.ok("Товар успешно создан");
         } catch (Exception e) {
-            return new ResponseEntity<String>("Товар не создан", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body("Товар не создан");
         }
     }
 
@@ -43,24 +45,29 @@ public class LapTopServiceImpl implements LapTopService {
                         lapTopEntity.setTitle(lapTopModel.getTitle());
                         lapTopEntity.setPrice(lapTopModel.getPrice());
                         lapTopRepo.save(lapTopEntity);
-                        return new ResponseEntity<String>("Товар с таким айди " + id + " обновлен", HttpStatus.OK);
-                    }).orElse(new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.BAD_REQUEST));
+                        return ResponseEntity.ok("Товар с таким айди " + id + " обновлен");
+                    }).orElse(new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.NOT_FOUND));
     }
 
     @Override
     public ResponseEntity<?> getLapTopId(Long id) {
         LapTopEntity lapTopEntity = lapTopRepo.findById(id).get();
-        if (lapTopRepo.existsById(id)) return new ResponseEntity<LapTopModel>(LapTopModel.toLapTop(lapTopEntity), HttpStatus.OK);
-        else return new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.BAD_REQUEST);
+        if (lapTopRepo.existsById(id)) return ResponseEntity.ok(LapTopModel.toLapTop(lapTopEntity));
+        else return new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public List<LapTopEntity> getALlLapTops() {
+        return lapTopRepo.findAll();
     }
 
     @Override
     public ResponseEntity<String> deleteLapTop(Long id) {
         try {
             lapTopRepo.deleteById(id);
-            return new ResponseEntity<String>("Товар удален", HttpStatus.OK);
+            return ResponseEntity.ok("Товар удален");
         } catch (Exception e) {
-            return new ResponseEntity<String>("Товар не найден", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Товар не найден", HttpStatus.NOT_FOUND);
         }
     }
 }

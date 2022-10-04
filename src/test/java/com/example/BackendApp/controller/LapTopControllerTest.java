@@ -1,7 +1,8 @@
 package com.example.BackendApp.controller;
 
+import com.example.BackendApp.entity.LapTopEntity;
 import com.example.BackendApp.entity.UserEntity;
-import com.example.BackendApp.model.UserModel;
+import com.example.BackendApp.model.LapTopModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -13,68 +14,68 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserControllerTest {
+class LapTopControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
-    public void getUsersTest() throws Exception {
-        this.mockMvc.perform(get("/api/v1/users"))
+    public void getLapTopsTest() throws Exception {
+        this.mockMvc.perform(get("/api/v1/laptops"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void getOneUserTest() throws Exception {
-        this.mockMvc.perform(get("/api/v1/users/1"))
+    public void getOneLapTopTest() throws Exception {
+        this.mockMvc.perform(get("/api/v1/laptops/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void postUserTest() throws Exception {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(1L);
-        userEntity.setUserName("Beka");
-        userEntity.setUserPass("2134");
-        userEntity.setEmail("beka@gmail.com");
+    public void postLapTopTest() throws Exception {
+        LapTopEntity lapTopEntity = new LapTopEntity();
+        lapTopEntity.setId(1L);
+        lapTopEntity.setTitle("HP");
+        lapTopEntity.setPrice("12222");
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter writer = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = writer.writeValueAsString(userEntity);
-        mockMvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON_UTF8)
+        String requestJson = writer.writeValueAsString(lapTopEntity);
+        mockMvc.perform(post("/api/v1/laptops").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson))
-                        .andExpect(status().isOk());
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void putUserTest() throws Exception {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(1L);
-        userEntity.setEmail("brka@gmail.com");
-        userEntity.setUserName("Beka");
-        userEntity.setUserPass("12341234");
+    public void putLaptopTest() throws Exception {
+        LapTopEntity lapTopEntity = new LapTopEntity();
+        lapTopEntity.setId(1L);
+        lapTopEntity.setTitle("Lenovo");
+        lapTopEntity.setPrice("12444");
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter writer = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = writer.writeValueAsString(userEntity);
-        mockMvc.perform(put("/api/v1/users/1").contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(requestJson))
+        String requestJson = writer.writeValueAsString(lapTopEntity);
+        mockMvc.perform(put("/api/v1/laptops/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void deleteUserTest() throws Exception {
-        this.mockMvc.perform(delete("/api/v1/users/1"))
+    public void deleteLapTopTest() throws Exception {
+        this.mockMvc.perform(delete("/api/v1/laptops/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
 }

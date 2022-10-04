@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> getUserId(Long id) {
         UserEntity user = userRepo.findById(id).get();
         if (userRepo.existsById(id)) return ResponseEntity.ok(UserModel.toUser(user));
-        else return ResponseEntity.badRequest().body("Пользователь по айди " + id + " не найден");
+        else return new ResponseEntity<String>("Пользователь по айди " + id + " не найден", HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
             userRepo.deleteById(id);
             return ResponseEntity.ok("Пользователь удалён");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Пользователь с таким айди " + id + " не найден");
+            return new ResponseEntity<String>("Пользователь с таким айди " + id + " не найден", HttpStatus.NOT_FOUND);
         }
     }
 

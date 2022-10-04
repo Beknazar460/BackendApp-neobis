@@ -31,8 +31,8 @@ public class OrderServiceImpl implements OrderService {
             OrderEntity orderEntity = new OrderEntity();
             orderEntity.setTitleOfProduct(orderModel.getTitleOfProduct());
             orderEntity.setPriceOfProduct(orderModel.getPriceOfProduct());
-            orderEntity.setUser(userRepo.findById(orderModel.getUsersId()).orElse(null));
-            orderEntity.setLapTop(lapTopRepo.findById(orderModel.getLaptopsId()).orElse(null));
+            orderEntity.setUser(userRepo.findById(orderModel.getUsersId()).get());
+            orderEntity.setLapTop(lapTopRepo.findById(orderModel.getLaptopsId()).get());
             orderRepo.save(orderEntity);
             return ResponseEntity.ok("Заказ успешно создан");
         }
