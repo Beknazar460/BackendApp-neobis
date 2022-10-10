@@ -20,6 +20,8 @@ public class UserModel {
     private Long id;
     private String userName;
     private String email;
+    private Role role;
+    private Status status;
     private List<OrderModel> toOrders;
 
     public static UserModel toUser(UserEntity userEntity) {
@@ -27,6 +29,8 @@ public class UserModel {
         userModel.setEmail(userEntity.getEmail());
         userModel.setUserName(userEntity.getUserName());
         userModel.setId(userEntity.getId());
+        userModel.setRole(userEntity.getRole());
+        userModel.setStatus(userEntity.getStatus());
         userModel.setToOrders(userEntity.getOrderEntities().stream().map(OrderModel::orderModel).collect(Collectors.toList()));
         return userModel;
     }

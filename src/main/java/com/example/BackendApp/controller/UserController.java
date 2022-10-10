@@ -7,13 +7,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@Tag(
+@Tag (
         name = "Контроллер для управления записей пользователя",
         description = "В этом контроллере вы сможете добавлять, удалять, получать, а также обновлять данные пользователей"
 )
@@ -31,6 +32,7 @@ public class UserController {
             summary = "Получение пользователя",
             description = "Позволяет получать пользователя по идентификатору пользователя"
     )
+    @PreAuthorize("hasAuthority('users:read')")
     public ResponseEntity<?> getUserId(@PathVariable
                                            @Parameter(description = "Идентификатор пользователя")
                                                 Long id) {
@@ -42,6 +44,7 @@ public class UserController {
             summary = "Получение всех пользователей",
             description = "Позволяет получить всех пользователей"
     )
+    @PreAuthorize("hasAuthority('users:read')")
     public List<UserEntity> getAllUsers() {
         return userServiceImpl.getAllUsers();
     }
@@ -51,6 +54,7 @@ public class UserController {
             summary = "Создание пользователя",
             description = "Позволяет создать пользователя введя его данные"
     )
+    @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity<String> createUser(@RequestBody UserEntity userEntity) {
         return userServiceImpl.createUser(userEntity);
     }
@@ -60,6 +64,7 @@ public class UserController {
             summary = "Обновление пользователя",
             description = "Позволяет изменить данные пользователя по идентификатору"
     )
+    @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity<?> updateUser(@PathVariable
                                             @Parameter(description = "Идентификатор пользователя")
                                                 Long id,
@@ -72,7 +77,8 @@ public class UserController {
             summary = "Удаление пользователя",
             description = "Позволяет удалить пользователя по идентификатору"
     )
-    public ResponseEntity deleteUser(@PathVariable
+    @PreAuthorize("hasAuthority('users:write')")
+    public ResponseEntity<?> deleteUser(@PathVariable
                                          @Parameter(description = "Идентификатор пользователя")
                                             Long id) {
         return userServiceImpl.deleteUser(id);

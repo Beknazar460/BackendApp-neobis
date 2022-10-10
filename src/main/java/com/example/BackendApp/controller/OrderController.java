@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,7 +32,8 @@ public class OrderController {
             summary = "Создание заказа",
             description = "Позволяет создать заказ введя его данные"
     )
-    private ResponseEntity createOrder(@RequestBody OrderModel order) {
+//    @PreAuthorize("hasAuthority('users:write')")
+    private ResponseEntity<?> createOrder(@RequestBody OrderModel order) {
         return orderService.createOrder(order);
     }
 
@@ -40,7 +42,8 @@ public class OrderController {
             summary = "Удаление заказа",
             description = "Позволяет удалять заказы по идентификатору"
     )
-    private ResponseEntity deleteOrder(@PathVariable
+//    @PreAuthorize("hasAuthority('users:write')")
+    private ResponseEntity<?> deleteOrder(@PathVariable
                                            @Parameter(description = "Идентификатор заказа")
                                                 Long id) {
         return orderService.deleteOrder(id);

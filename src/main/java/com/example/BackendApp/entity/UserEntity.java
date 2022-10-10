@@ -1,5 +1,7 @@
 package com.example.BackendApp.entity;
 
+import com.example.BackendApp.model.Role;
+import com.example.BackendApp.model.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +20,10 @@ public class UserEntity {
     private String email;
     private String userName;
     private String userPass;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<OrderEntity> orderEntities;
