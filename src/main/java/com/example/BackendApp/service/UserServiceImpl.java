@@ -32,15 +32,15 @@ public class UserServiceImpl implements UserService {
             int nameLength = userEntity.getUserName().length();
 
             for (int i = 0; i < nameLength; i++) {
-                if (userEntity.getUserName().charAt(i) == ' ') return ResponseEntity.badRequest().body("В имени не должно присутствовать пробелов");
+                if (userEntity.getUserName().charAt(i) == ' ') return ResponseEntity.badRequest().body("There should be no spaces in the name");
             }
             if (userRepo.findByUserName(userEntity.getUserName()) != null) {
-                return ResponseEntity.badRequest().body("Пользователь с таким именем уже существует!");
+                return ResponseEntity.badRequest().body("A user with this name already exists!");
             }
             userRepo.save(userEntity);
-            return ResponseEntity.ok("Пользователь успешно создан");
+            return ResponseEntity.ok("User is created");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Пользователь не создан");
+            return ResponseEntity.badRequest().body("User isn't created");
         }
     }
 
@@ -52,24 +52,24 @@ public class UserServiceImpl implements UserService {
                     user1.setEmail(userEntity.getEmail());
                     user1.setUserPass(userEntity.getUserPass());
                     userRepo.save(user1);
-                    return ResponseEntity.ok("Пользователь с таким айди " + id + " обновлен");
-                }).orElse(new ResponseEntity<String>("Пользователь с таким айди " + id + " не найден", HttpStatus.NOT_FOUND));
+                    return ResponseEntity.ok("A user with such an ID " + id + " updated");
+                }).orElse(new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
     public ResponseEntity<?> getUserId(Long id) {
         UserEntity user = userRepo.findById(id).get();
         if (userRepo.existsById(id)) return ResponseEntity.ok(UserModel.toUser(user));
-        else return new ResponseEntity<String>("Пользователь по айди " + id + " не найден", HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND);
     }
 
     @Override
     public ResponseEntity<String> deleteUser(Long id) {
         try {
             userRepo.deleteById(id);
-            return ResponseEntity.ok("Пользователь удалён");
+            return ResponseEntity.ok("User is deleted");
         } catch (Exception e) {
-            return new ResponseEntity<String>("Пользователь с таким айди " + id + " не найден", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND);
         }
     }
 

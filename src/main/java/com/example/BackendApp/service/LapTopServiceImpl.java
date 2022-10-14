@@ -27,14 +27,14 @@ public class LapTopServiceImpl implements LapTopService {
         try {
             LapTopEntity lapTopEntity = new LapTopEntity();
             if (lapTopRepo.findByTitle(lapTopModel.getTitle()) != null) {
-                return ResponseEntity.badRequest().body("Товар уже существует");
+                return ResponseEntity.badRequest().body("The product already exists");
             }
             lapTopEntity.setTitle(lapTopModel.getTitle());
             lapTopEntity.setPrice(lapTopModel.getPrice());
             lapTopRepo.save(lapTopEntity);
-            return ResponseEntity.ok("Товар успешно создан");
+            return ResponseEntity.ok("Product is created");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Товар не создан");
+            return ResponseEntity.badRequest().body("Product isn't created");
         }
     }
 
@@ -45,15 +45,15 @@ public class LapTopServiceImpl implements LapTopService {
                         lapTopEntity.setTitle(lapTopModel.getTitle());
                         lapTopEntity.setPrice(lapTopModel.getPrice());
                         lapTopRepo.save(lapTopEntity);
-                        return ResponseEntity.ok("Товар с таким айди " + id + " обновлен");
-                    }).orElse(new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.NOT_FOUND));
+                        return ResponseEntity.ok("Product with this id " + id + " updated");
+                    }).orElse(new ResponseEntity<String>("Product with this id " + id + " not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
     public ResponseEntity<?> getLapTopId(Long id) {
             LapTopEntity lapTopEntity = lapTopRepo.findById(id).get();
             if (lapTopRepo.existsById(id)) return ResponseEntity.ok(LapTopModel.toLapTop(lapTopEntity));
-            else return new ResponseEntity<String>("Товар с таким айди " + id + " не найден", HttpStatus.NOT_FOUND);
+            else return new ResponseEntity<String>("Product with this id " + id + " not found", HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -65,9 +65,9 @@ public class LapTopServiceImpl implements LapTopService {
     public ResponseEntity<String> deleteLapTop(Long id) {
         try {
             lapTopRepo.deleteById(id);
-            return ResponseEntity.ok("Товар удален");
+            return ResponseEntity.ok("Product is deleted");
         } catch (Exception e) {
-            return new ResponseEntity<String>("Товар не найден", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("Product not found", HttpStatus.NOT_FOUND);
         }
     }
 }

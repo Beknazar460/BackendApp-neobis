@@ -45,7 +45,7 @@ public class AuthenticationControllerV1 {
                                                                                         requestModel.getPassword()));
             UserEntity user = userRepo.findByEmail(requestModel.getEmail());
             if (user == null) {
-                throw new UsernameNotFoundException("Пользователь не существует");
+                throw new UsernameNotFoundException("The user does not exist");
             }
             String token = jwtTokenProvider.createToken(requestModel.getEmail(), user.getRole().name());
             Map<Object, Object> response = new HashMap<>();
@@ -54,7 +54,7 @@ public class AuthenticationControllerV1 {
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
-            return new ResponseEntity<String>("Недействительная комбинация почты и пароля", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<String>("Invalid mail and password combination", HttpStatus.FORBIDDEN);
         }
     }
 

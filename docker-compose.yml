@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  postgres-springjpa:
+    container_name: postgres-springjpa
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: Tommishelby04
+      POSTGRES_DB: springjpa
+  springjpa:
+    container_name: springjpa
+    image: springjpa
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-backend-app:5432/springjpa
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSOWRD: Tommishelby04
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres-springjpa

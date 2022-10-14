@@ -34,17 +34,17 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setUser(userRepo.findById(orderModel.getUsersId()).get());
             orderEntity.setLapTop(lapTopRepo.findById(orderModel.getLaptopsId()).get());
             orderRepo.save(orderEntity);
-            return ResponseEntity.ok("Заказ успешно создан");
+            return ResponseEntity.ok("Order is created");
         }
-        return new ResponseEntity<String>("Такой пользователь либо товар не существует", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<String>("Such a user or product does not exist", HttpStatus.NOT_FOUND);
     }
 
     @Override
     public ResponseEntity<String> deleteOrder(Long id) {
         if (orderRepo.existsById(id)) {
             orderRepo.deleteById(id);
-            return ResponseEntity.ok("Заказ успешно удалён");
+            return ResponseEntity.ok("Order is deleted");
         }
-        else return new ResponseEntity<String>("Такого заказа не существует", HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<String>("There is no such order", HttpStatus.NOT_FOUND);
     }
 }
