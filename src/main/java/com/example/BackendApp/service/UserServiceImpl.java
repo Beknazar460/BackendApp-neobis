@@ -7,6 +7,7 @@ import com.example.BackendApp.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepo userRepo) {
@@ -37,7 +41,14 @@ public class UserServiceImpl implements UserService {
             if (userRepo.findByUserName(userEntity.getUserName()) != null) {
                 return ResponseEntity.badRequest().body("A user with this name already exists!");
             }
-            userRepo.save(userEntity);
+            UserEntity user = new UserEntity();
+            user.setId(userEntity.getId());
+            user.setEmail(userEntity.getEmail());
+            user.setUserName(userEntity.getUserName());
+            user.setUserPass(passwordEncoder.encode(userEntity.getUserPass()));
+            user.setRole(userEntity.getRole());
+            user.setStatus(userEntity.getStatus());
+            userRepo.save(user);
             return ResponseEntity.ok("User is created");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("User isn't created");
