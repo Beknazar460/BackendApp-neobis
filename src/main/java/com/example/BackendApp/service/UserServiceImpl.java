@@ -17,12 +17,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepo userRepo) {
+    public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
             int nameLength = userEntity.getUserName().length();
 
             for (int i = 0; i < nameLength; i++) {
-                if (userEntity.getUserName().charAt(i) == ' ') return ResponseEntity.badRequest().body("There should be no spaces in the name");
+                if (userEntity.getUserName().charAt(i) == ' ' || userEntity.getEmail().charAt(i) == ' ') return ResponseEntity.badRequest().body("There should be no spaces in the name or email");
+
             }
             if (userRepo.findByUserName(userEntity.getUserName()) != null) {
                 return ResponseEntity.badRequest().body("A user with this name already exists!");
