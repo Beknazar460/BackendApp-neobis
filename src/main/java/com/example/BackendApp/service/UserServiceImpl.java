@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,6 +42,9 @@ public class UserServiceImpl implements UserService {
             }
             if (userRepo.findByUserName(userEntity.getUserName()) != null) {
                 return ResponseEntity.badRequest().body("A user with this name already exists!");
+            }
+            else if (!Objects.equals(userEntity.getConfirmPass(), userEntity.getUserPass())) {
+                return ResponseEntity.badRequest().body("The repeated password does not match the current password");
             }
             UserEntity user = new UserEntity();
             user.setId(userEntity.getId());
