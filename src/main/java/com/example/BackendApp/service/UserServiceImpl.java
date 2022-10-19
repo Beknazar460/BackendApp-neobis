@@ -66,7 +66,9 @@ public class UserServiceImpl implements UserService {
                 .map(user1 -> {
                     user1.setUserName(userEntity.getUserName());
                     user1.setEmail(userEntity.getEmail());
-                    user1.setUserPass(userEntity.getUserPass());
+                    user1.setUserPass(passwordEncoder.encode(userEntity.getUserPass()));
+                    user1.setRole(userEntity.getRole());
+                    user1.setStatus(userEntity.getStatus());
                     userRepo.save(user1);
                     return ResponseEntity.ok("A user with such an ID " + id + " updated");
                 }).orElse(new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND));
