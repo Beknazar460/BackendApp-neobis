@@ -1,7 +1,7 @@
 # Hello Kyzzhibek Orozbekova 
-## You're so realy dear mentor and beuatiful
+## You're so realy beautiful mentor and clever
 ### To run the tests, you just need to go to the test folder, and then run the test api in the controllers folder
-And don't forget, There is swagger ui, youre need open swagger user interface in chrome and to run my endpoints
+And don't forget, There is swagger ui, you're need open swagger user interface in chrome and to run my endpoints
 
 # Docker file
 ### 1. Build an image for postgres ```docker pull postgres```
