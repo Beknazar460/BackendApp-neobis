@@ -5,6 +5,7 @@ import com.example.BackendApp.model.Status;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class UserEntity {
     private String email;
     private String userName;
     private String userPass;
-    private String confirmPass;
+    private Date dateOfRegister;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Enumerated(EnumType.STRING)
@@ -28,4 +29,5 @@ public class UserEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<OrderEntity> orderEntities;
+
 }

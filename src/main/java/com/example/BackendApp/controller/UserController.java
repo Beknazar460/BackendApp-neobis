@@ -1,6 +1,7 @@
 package com.example.BackendApp.controller;
 
 import com.example.BackendApp.entity.UserEntity;
+import com.example.BackendApp.model.UserRequest;
 import com.example.BackendApp.service.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -55,8 +56,8 @@ public class UserController {
             description = "Позволяет создать пользователя введя его данные"
     )
     @PreAuthorize("hasAuthority('users:write')")
-    public ResponseEntity<String> createUser(@RequestBody UserEntity userEntity) {
-        return userServiceImpl.createUser(userEntity);
+    public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
+        return userServiceImpl.createUser(userRequest);
     }
 
     @PutMapping("/{id}")
@@ -68,8 +69,8 @@ public class UserController {
     public ResponseEntity<?> updateUser(@PathVariable
                                             @Parameter(description = "Идентификатор пользователя")
                                                 Long id,
-                                         @RequestBody UserEntity user) {
-        return userServiceImpl.updateUser(id, user);
+                                         @RequestBody UserRequest userRequest) {
+        return userServiceImpl.updateUser(id, userRequest);
     }
 
     @DeleteMapping("/{id}")

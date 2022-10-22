@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class UserModel {
     private Long id;
     private String userName;
     private String email;
+    private Date dateOfRegister;
     private Role role;
     private Status status;
     private List<OrderModel> toOrders;
@@ -27,6 +29,7 @@ public class UserModel {
     public static UserModel toUser(UserEntity userEntity) {
         UserModel userModel = new UserModel();
         userModel.setEmail(userEntity.getEmail());
+        userModel.setDateOfRegister(userEntity.getDateOfRegister());
         userModel.setUserName(userEntity.getUserName());
         userModel.setId(userEntity.getId());
         userModel.setRole(userEntity.getRole());

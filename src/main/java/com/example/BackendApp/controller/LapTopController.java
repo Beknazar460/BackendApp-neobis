@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/laptops")
 @Tag(
@@ -32,8 +34,8 @@ public class LapTopController {
             description = "Позволяет получить всех товаров"
     )
 //    @PreAuthorize("hasAuthority('users:read')")
-    private ResponseEntity getAllLapTops() {
-        return ResponseEntity.ok(lapTopService.getALlLapTops());
+    private List<LapTopEntity> getAllLapTops() {
+        return lapTopService.getALlLapTops();
     }
 
     @GetMapping("/{id}")
@@ -42,7 +44,7 @@ public class LapTopController {
             description = "Позволяет получить товар по идентификатору"
     )
 //    @PreAuthorize("hasAuthority('users:read')")
-    private ResponseEntity getLaptopById(@PathVariable
+    private ResponseEntity<?> getLaptopById(@PathVariable
                                              @Parameter(description = "Идентификатор товара")
                                                 Long id) {
        return lapTopService.getLapTopId(id);
@@ -54,7 +56,7 @@ public class LapTopController {
             description = "Позволяет создать товар введя его данные"
     )
 //    @PreAuthorize("hasAuthority('users:write')")
-    private ResponseEntity createLapTop(@RequestBody LapTopModel lapTopModel) {
+    private ResponseEntity<?> createLapTop(@RequestBody LapTopModel lapTopModel) {
         return lapTopService.createLapTop(lapTopModel);
     }
 
@@ -64,7 +66,7 @@ public class LapTopController {
             description = "Позволяет изменить данные товара по идентификатору"
     )
 //    @PreAuthorize("hasAuthority('users:write')")
-    private ResponseEntity updateLapTop(@PathVariable
+    private ResponseEntity<?> updateLapTop(@PathVariable
                                             @Parameter(description = "Идентификатор товара")
                                                 Long id,
                                         @RequestBody LapTopModel lapTopModel) {
@@ -77,7 +79,7 @@ public class LapTopController {
             description = "Позволяет удалить товар по идентификатору"
     )
 //    @PreAuthorize("hasAuthority('users:write')")
-    private ResponseEntity deleteLapTop(@PathVariable
+    private ResponseEntity<String> deleteLapTop(@PathVariable
                                             @Parameter(description = "Идентификатор товара")
                                                 Long id) {
         return lapTopService.deleteLapTop(id);

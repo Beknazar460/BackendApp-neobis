@@ -2,6 +2,7 @@ package com.example.BackendApp.service;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.UserModel;
+import com.example.BackendApp.model.UserRequest;
 import com.example.BackendApp.repository.UserRepo;
 import com.example.BackendApp.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,43 +35,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<String> createUser(UserEntity userEntity) {
+    public ResponseEntity<String> createUser(UserRequest userRequest) {
         try {
-            int nameLength = userEntity.getUserName().length();
+            int nameLength = userRequest.getUserName().length();
 
             for (int i = 0; i < nameLength; i++) {
-                if (userEntity.getUserName().charAt(i) == ' ' || userEntity.getEmail().charAt(i) == ' ') return ResponseEntity.badRequest().body("There should be no spaces in the name or email");
+                if (userRequest.getUserName().charAt(i) == ' ' || userRequest.getEmail().charAt(i) == ' ') return ResponseEntity.badRequest().body("There should be no spaces in the name or email");
 
             }
-            if (userRepo.findByUserName(userEntity.getUserName()) != null) {
-                return ResponseEntity.badRequest().body("A user with this name already exists!");
+            if (userRepo.findByUserName(userRequest.getUserName()) != null || userRepo.findByEmail(userRequest.getEmail()) != null) {
+                return ResponseEntity.badRequest().body("A user with this name or email already exists!");
             }
-            else if (!Objects.equals(userEntity.getConfirmPass(), userEntity.getUserPass())) {
+            else if (!Objects.equals(userRequest.getConfirmPass(), userRequest.getUserPass())) {
                 return ResponseEntity.badRequest().body("The repeated password does not match the current password");
             }
             UserEntity user = new UserEntity();
-            user.setId(userEntity.getId());
-            user.setEmail(userEntity.getEmail());
-            user.setUserName(userEntity.getUserName());
-            user.setUserPass(passwordEncoder.encode(userEntity.getUserPass()));
-            user.setRole(userEntity.getRole());
-            user.setStatus(userEntity.getStatus());
+            Date dateOfRegister = new Date();
+            user.setDateOfRegister(dateOfRegister);
+            user.setEmail(userRequest.getEmail());
+            user.setUserName(userRequest.getUserName());
+            user.setUserPass(passwordEncoder.encode(userRequest.getUserPass()));
+            user.setRole(userRequest.getRole());
+            user.setStatus(userRequest.getStatus());
             userRepo.save(user);
-            return ResponseEntity.ok("User is created");
+            return new ResponseEntity<String>("User is created", HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("User isn't created");
         }
     }
 
     @Override
-    public ResponseEntity<?> updateUser(Long id, UserEntity userEntity) {
+    public ResponseEntity<?> updateUser(Long id, UserRequest userRequest) {
         return userRepo.findById(id)
                 .map(user1 -> {
-                    user1.setUserName(userEntity.getUserName());
-                    user1.setEmail(userEntity.getEmail());
-                    user1.setUserPass(passwordEncoder.encode(userEntity.getUserPass()));
-                    user1.setRole(userEntity.getRole());
-                    user1.setStatus(userEntity.getStatus());
+                    Date dateAfterUpdate = new Date();
+                    user1.setUserName(userRequest.getUserName());
+                    user1.setEmail(userRequest.getEmail());
+                    user1.setDateOfRegister(dateAfterUpdate);
+                    user1.setUserPass(passwordEncoder.encode(userRequest.getUserPass()));
+                    user1.setRole(userRequest.getRole());
+                    user1.setStatus(userRequest.getStatus());
                     userRepo.save(user1);
                     return ResponseEntity.ok("A user with such an ID " + id + " updated");
                 }).orElse(new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND));
@@ -76,9 +82,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> getUserId(Long id) {
-        UserEntity user = userRepo.findById(id).get();
-        if (userRepo.existsById(id)) return ResponseEntity.ok(UserModel.toUser(user));
-        else return new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND);
+        try {
+            UserEntity user = userRepo.findById(id).get();
+            return ResponseEntity.ok(UserModel.toUser(user));
+        } catch (Exception e) {
+            return new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
