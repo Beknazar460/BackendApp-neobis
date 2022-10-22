@@ -1,8 +1,18 @@
-1. to test the apishka, you need to open the postman, and make a post request under the address http://localhost:8080/api/v1/auth/login
-2. the request will be made like this:
+1. you will first need to manually create one user with the admin role in the database in the users table
+2. to test the apishka, you need to open the postman, and make a post request under the address http://localhost:8080/api/v1/auth/login
+3. the request will be example made like this:
 {
  "email": "admin@mail.ru ",
  "password": "admin"
 }
-3. You must get a token, and this token must be specified in the header where "key = Authorization, and where value = the received token",
+4. You must get a token, and this token must be specified in the header where "key = Authorization, and where value = the received token",
 this step must be specified in any other requests
+5. Request for create user: (Body)
+{
+    "email": "user@mail.ru",
+    "userName": "user",
+    "userPass": "user",
+    "confirmPass": "user",
+    "role": "ADMIN",
+    "status": "ACTIVE"
+}
