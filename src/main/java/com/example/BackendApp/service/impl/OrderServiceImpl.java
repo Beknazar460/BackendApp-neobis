@@ -1,11 +1,11 @@
-package com.example.BackendApp.service;
+package com.example.BackendApp.service.impl;
 
 import com.example.BackendApp.entity.OrderEntity;
 import com.example.BackendApp.model.OrderModel;
 import com.example.BackendApp.repository.LapTopRepo;
 import com.example.BackendApp.repository.OrderRepo;
 import com.example.BackendApp.repository.UserRepo;
-import com.example.BackendApp.service.impl.OrderService;
+import com.example.BackendApp.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

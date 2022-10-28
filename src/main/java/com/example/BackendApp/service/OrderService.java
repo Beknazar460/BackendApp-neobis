@@ -1,4 +1,4 @@
-package com.example.BackendApp.service.impl;
+package com.example.BackendApp.service;
 
 import com.example.BackendApp.entity.OrderEntity;
 import com.example.BackendApp.model.OrderModel;

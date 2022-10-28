@@ -1,18 +1,17 @@
-package com.example.BackendApp.service;
+package com.example.BackendApp.service.impl;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.UserModel;
 import com.example.BackendApp.model.UserRequest;
 import com.example.BackendApp.repository.UserRepo;
-import com.example.BackendApp.service.impl.UserService;
+import com.example.BackendApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,19 +37,25 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<String> createUser(UserRequest userRequest) {
         try {
             int nameLength = userRequest.getUserName().length();
+            int emailLength = userRequest.getEmail().length();
 
             for (int i = 0; i < nameLength; i++) {
-                if (userRequest.getUserName().charAt(i) == ' ' || userRequest.getEmail().charAt(i) == ' ') return ResponseEntity.badRequest().body("There should be no spaces in the name or email");
-
+                if (userRequest.getUserName().charAt(i) == ' ')
+                    return ResponseEntity.badRequest().body("There should be no spaces in the name");
+            }
+            for (int i = 0; i < emailLength; i++) {
+                if (userRequest.getEmail().charAt(i) == ' ') {
+                    return ResponseEntity.badRequest().body("There should be no spaces in the email");
+                }
             }
             if (userRepo.findByUserName(userRequest.getUserName()) != null || userRepo.findByEmail(userRequest.getEmail()) != null) {
                 return ResponseEntity.badRequest().body("A user with this name or email already exists!");
             }
-            else if (!Objects.equals(userRequest.getConfirmPass(), userRequest.getUserPass())) {
+            if (!Objects.equals(userRequest.getConfirmPass(), userRequest.getUserPass())) {
                 return ResponseEntity.badRequest().body("The repeated password does not match the current password");
             }
             UserEntity user = new UserEntity();
-            Date dateOfRegister = new Date();
+            LocalDateTime dateOfRegister = LocalDateTime.now();
             user.setDateOfRegister(dateOfRegister);
             user.setEmail(userRequest.getEmail());
             user.setUserName(userRequest.getUserName());
@@ -68,7 +73,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> updateUser(Long id, UserRequest userRequest) {
         return userRepo.findById(id)
                 .map(user1 -> {
-                    Date dateAfterUpdate = new Date();
+                    LocalDateTime dateAfterUpdate = LocalDateTime.now();
                     user1.setUserName(userRequest.getUserName());
                     user1.setEmail(userRequest.getEmail());
                     user1.setDateOfRegister(dateAfterUpdate);

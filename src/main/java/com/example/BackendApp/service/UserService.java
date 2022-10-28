@@ -1,7 +1,6 @@
-package com.example.BackendApp.service.impl;
+package com.example.BackendApp.service;
 
 import com.example.BackendApp.entity.UserEntity;
-import com.example.BackendApp.model.UserModel;
 import com.example.BackendApp.model.UserRequest;
 import org.springframework.http.ResponseEntity;
 
@@ -14,5 +13,4 @@ public interface UserService {
     ResponseEntity<?> getUserId(Long id);
     ResponseEntity<String> deleteUser(Long id);
     ResponseEntity<?> updateUser(Long id, UserRequest userRequest);
-
 }

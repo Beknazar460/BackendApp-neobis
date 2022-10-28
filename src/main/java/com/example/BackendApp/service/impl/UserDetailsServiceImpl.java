@@ -1,4 +1,4 @@
-package com.example.BackendApp.service;
+package com.example.BackendApp.service.impl;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.repository.UserRepo;

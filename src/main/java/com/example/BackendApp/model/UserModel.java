@@ -1,15 +1,13 @@
 package com.example.BackendApp.model;
 
-import com.example.BackendApp.entity.OrderEntity;
 import com.example.BackendApp.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
@@ -21,7 +19,7 @@ public class UserModel {
     private Long id;
     private String userName;
     private String email;
-    private Date dateOfRegister;
+    private LocalDateTime dateOfRegister;
     private Role role;
     private Status status;
     private List<OrderModel> toOrders;

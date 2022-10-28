@@ -1,9 +1,9 @@
-package com.example.BackendApp.service;
+package com.example.BackendApp.service.impl;
 
 import com.example.BackendApp.entity.LapTopEntity;
 import com.example.BackendApp.model.LapTopModel;
 import com.example.BackendApp.repository.LapTopRepo;
-import com.example.BackendApp.service.impl.LapTopService;
+import com.example.BackendApp.service.LapTopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

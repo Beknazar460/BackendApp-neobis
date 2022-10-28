@@ -2,7 +2,7 @@ package com.example.BackendApp.controller;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.UserRequest;
-import com.example.BackendApp.service.UserServiceImpl;
+import com.example.BackendApp.service.impl.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

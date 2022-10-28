@@ -5,7 +5,7 @@ import com.example.BackendApp.model.Status;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,7 +21,7 @@ public class UserEntity {
     private String email;
     private String userName;
     private String userPass;
-    private Date dateOfRegister;
+    private LocalDateTime dateOfRegister;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Enumerated(EnumType.STRING)
