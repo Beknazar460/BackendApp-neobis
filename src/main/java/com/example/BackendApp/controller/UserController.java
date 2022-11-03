@@ -80,8 +80,8 @@ public class UserController {
     )
     @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity<?> deleteUser(@PathVariable
-                                         @Parameter(description = "Идентификатор пользователя")
-                                            Long id) {
+                                            @Parameter(description = "Идентификатор пользователя")
+                                                Long id) {
         return userServiceImpl.deleteUser(id);
     }
 }

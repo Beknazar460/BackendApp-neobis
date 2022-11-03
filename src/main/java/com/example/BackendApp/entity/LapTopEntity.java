@@ -20,7 +20,7 @@ public class LapTopEntity {
     private String title;
     private String price;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lapTop")
-    private List<OrderEntity> orderEntity;
+        @OneToMany(cascade = CascadeType.ALL, mappedBy = "lapTop")
+        private List<OrderEntity> orderEntity;
 
 }
