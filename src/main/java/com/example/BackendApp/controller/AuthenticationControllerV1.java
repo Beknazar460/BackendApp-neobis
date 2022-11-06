@@ -53,6 +53,10 @@ public class AuthenticationControllerV1 {
     }
 
     @PostMapping("/login")
+    @Operation(
+            summary = "Авторизация пользователя",
+            description = "Позволяет авторизовать пользователя"
+    )
     private ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestModel requestModel) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestModel.getEmail(),

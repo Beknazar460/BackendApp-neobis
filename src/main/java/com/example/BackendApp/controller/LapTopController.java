@@ -45,9 +45,9 @@ public class LapTopController {
     )
     @PreAuthorize("hasAuthority('users:read')")
     private ResponseEntity<?> getLaptopById(@PathVariable
-                                             @Parameter(description = "Идентификатор товара")
-                                                Long id) {
-       return lapTopService.getLapTopId(id);
+                                            @Parameter(description = "Идентификатор товара")
+                                            Long id) {
+        return lapTopService.getLapTopId(id);
     }
 
     @PostMapping
@@ -61,26 +61,26 @@ public class LapTopController {
     }
 
     @PutMapping("/{id}")
-    @Operation (
-            summary = "Обновление товара" ,
+    @Operation(
+            summary = "Обновление товара",
             description = "Позволяет изменить данные товара по идентификатору"
     )
     @PreAuthorize("hasAuthority('users:write')")
     private ResponseEntity<?> updateLapTop(@PathVariable
-                                            @Parameter(description = "Идентификатор товара")
-                                                Long id,
-                                        @RequestBody LapTopModel lapTopModel) {
+                                           @Parameter(description = "Идентификатор товара")
+                                           Long id,
+                                           @RequestBody LapTopModel lapTopModel) {
         return lapTopService.updateLapTop(id, lapTopModel);
     }
 
     @DeleteMapping("/{id}")
-    @Operation (
+    @Operation(
             summary = "Удаление товара",
             description = "Позволяет удалить товар по идентификатору"
     )
     @PreAuthorize("hasAuthority('users:write')")
     private ResponseEntity<String> deleteLapTop(@PathVariable
-                                            @Parameter(description = "Идентификатор товара")
+                                                @Parameter(description = "Идентификатор товара")
                                                 Long id) {
         return lapTopService.deleteLapTop(id);
     }
