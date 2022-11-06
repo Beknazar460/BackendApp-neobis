@@ -1,4 +1,4 @@
-package com.example.BackendApp.controller;
+package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.AuthenticationRequestModel;
@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -27,8 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
-public class AuthenticationControllerV1 {
+@RequestMapping("/api/auth")
+public class RestAuthenticationControllerV1 {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
@@ -36,7 +35,7 @@ public class AuthenticationControllerV1 {
     private final UserServiceImpl userService;
 
     @Autowired
-    public AuthenticationControllerV1(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider, UserServiceImpl userService) {
+    public RestAuthenticationControllerV1(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider, UserServiceImpl userService) {
         this.authenticationManager = authenticationManager;
         this.userRepo = userRepo;
         this.jwtTokenProvider = jwtTokenProvider;

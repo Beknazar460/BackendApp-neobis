@@ -1,4 +1,4 @@
-package com.example.BackendApp.controller;
+package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.UserRequest;
@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Tag (
         name = "Контроллер для управления записей пользователя",
         description = "В этом контроллере вы сможете добавлять, удалять, получать, а также обновлять данные пользователей"
 )
-public class UserController {
+public class RestUserController {
 
     private final UserServiceImpl userServiceImpl;
 
     @Autowired
-    public UserController(UserServiceImpl userServiceImpl) {
+    public RestUserController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }
 

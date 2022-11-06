@@ -1,10 +1,7 @@
 package com.example.BackendApp.service.impl;
 
 import com.example.BackendApp.entity.UserEntity;
-import com.example.BackendApp.model.Role;
-import com.example.BackendApp.model.Status;
-import com.example.BackendApp.model.UserModel;
-import com.example.BackendApp.model.UserRequest;
+import com.example.BackendApp.model.*;
 import com.example.BackendApp.repository.UserRepo;
 import com.example.BackendApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

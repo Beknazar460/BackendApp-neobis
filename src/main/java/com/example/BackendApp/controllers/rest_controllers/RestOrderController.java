@@ -1,4 +1,4 @@
-package com.example.BackendApp.controller;
+package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.model.OrderModel;
 import com.example.BackendApp.service.impl.OrderServiceImpl;
@@ -11,17 +11,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/orders")
+@RequestMapping(path = "/api/orders")
 @Tag (
         name = "Контроллер для управления с заказами",
         description = "В этом контроллере вы сможете создавать и удалять заказы"
 )
-public class OrderController {
+public class RestOrderController {
 
     private final OrderServiceImpl orderService;
 
     @Autowired
-    public OrderController(OrderServiceImpl orderService) {
+    public RestOrderController(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
 
