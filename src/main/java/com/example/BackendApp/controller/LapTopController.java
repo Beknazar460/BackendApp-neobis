@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/laptops")
+@RequestMapping("/laptops")
 @Tag(
         name = "Контроллер для управления записей товаров",
         description = "В этом контроллере вы сможете добавлять, удалять, получать, а также обновлять данные товара"

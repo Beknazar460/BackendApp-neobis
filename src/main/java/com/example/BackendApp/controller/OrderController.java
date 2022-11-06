@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/v1/orders")
+@RequestMapping(path = "/orders")
 @Tag (
         name = "Контроллер для управления с заказами",
         description = "В этом контроллере вы сможете создавать и удалять заказы"

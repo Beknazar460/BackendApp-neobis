@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/users")
 @Tag (
         name = "Контроллер для управления записей пользователя",
         description = "В этом контроллере вы сможете добавлять, удалять, получать, а также обновлять данные пользователей"
