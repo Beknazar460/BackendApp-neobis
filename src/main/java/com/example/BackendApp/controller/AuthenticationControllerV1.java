@@ -2,11 +2,15 @@ package com.example.BackendApp.controller;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.AuthenticationRequestModel;
+import com.example.BackendApp.model.UserRequest;
 import com.example.BackendApp.repository.UserRepo;
 import com.example.BackendApp.security.JwtTokenProvider;
+import com.example.BackendApp.service.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -29,14 +33,24 @@ public class AuthenticationControllerV1 {
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public AuthenticationControllerV1(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider) {
+    public AuthenticationControllerV1(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider, UserServiceImpl userService) {
         this.authenticationManager = authenticationManager;
         this.userRepo = userRepo;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
     }
 
+    @PostMapping("/registration")
+    @Operation(
+            summary = "Создание пользователя",
+            description = "Позволяет создать пользователя введя его данные"
+    )
+    public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
+        return userService.createUser(userRequest);
+    }
 
     @PostMapping("/login")
     private ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestModel requestModel) {

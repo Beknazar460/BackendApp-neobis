@@ -33,7 +33,7 @@ public class LapTopController {
             summary = "Получение всех товаров",
             description = "Позволяет получить всех товаров"
     )
-//    @PreAuthorize("hasAuthority('users:read')")
+    @PreAuthorize("hasAuthority('users:read')")
     private List<LapTopEntity> getAllLapTops() {
         return lapTopService.getALlLapTops();
     }
@@ -43,7 +43,7 @@ public class LapTopController {
             summary = "Получение товара",
             description = "Позволяет получить товар по идентификатору"
     )
-//    @PreAuthorize("hasAuthority('users:read')")
+    @PreAuthorize("hasAuthority('users:read')")
     private ResponseEntity<?> getLaptopById(@PathVariable
                                              @Parameter(description = "Идентификатор товара")
                                                 Long id) {

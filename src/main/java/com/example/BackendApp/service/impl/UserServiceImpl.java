@@ -1,6 +1,8 @@
 package com.example.BackendApp.service.impl;
 
 import com.example.BackendApp.entity.UserEntity;
+import com.example.BackendApp.model.Role;
+import com.example.BackendApp.model.Status;
 import com.example.BackendApp.model.UserModel;
 import com.example.BackendApp.model.UserRequest;
 import com.example.BackendApp.repository.UserRepo;
@@ -48,8 +50,8 @@ public class UserServiceImpl implements UserService {
                     return ResponseEntity.badRequest().body("There should be no spaces in the email");
                 }
             }
-            if (userRepo.findByUserName(userRequest.getUserName()) != null || userRepo.findByEmail(userRequest.getEmail()) != null) {
-                return ResponseEntity.badRequest().body("A user with this name or email already exists!");
+            if (userRepo.findByEmail(userRequest.getEmail()) != null) {
+                return ResponseEntity.badRequest().body("A user with this email already exists!");
             }
             if (!Objects.equals(userRequest.getConfirmPass(), userRequest.getUserPass())) {
                 return ResponseEntity.badRequest().body("The repeated password does not match the current password");
@@ -60,8 +62,8 @@ public class UserServiceImpl implements UserService {
             user.setEmail(userRequest.getEmail());
             user.setUserName(userRequest.getUserName());
             user.setUserPass(passwordEncoder.encode(userRequest.getUserPass()));
-            user.setRole(userRequest.getRole());
-            user.setStatus(userRequest.getStatus());
+            user.setRole(Role.valueOf("USER"));
+            user.setStatus(Status.valueOf("ACTIVE"));
             userRepo.save(user);
             return new ResponseEntity<String>("User is created", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -78,8 +80,8 @@ public class UserServiceImpl implements UserService {
                     user1.setEmail(userRequest.getEmail());
                     user1.setDateOfRegister(dateAfterUpdate);
                     user1.setUserPass(passwordEncoder.encode(userRequest.getUserPass()));
-                    user1.setRole(userRequest.getRole());
-                    user1.setStatus(userRequest.getStatus());
+                    user1.setRole(Role.valueOf("USER"));
+                    user1.setStatus(Status.valueOf("ACTIVE"));
                     userRepo.save(user1);
                     return ResponseEntity.ok("A user with such an ID " + id + " updated");
                 }).orElse(new ResponseEntity<String>("A user with such an ID " + id + " not found", HttpStatus.NOT_FOUND));
