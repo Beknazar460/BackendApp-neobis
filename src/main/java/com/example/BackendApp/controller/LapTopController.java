@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class LapTopController {
             summary = "Создание товара",
             description = "Позволяет создать товар введя его данные"
     )
-//    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('users:write')")
     private ResponseEntity<?> createLapTop(@RequestBody LapTopModel lapTopModel) {
         return lapTopService.createLapTop(lapTopModel);
     }
@@ -64,7 +65,7 @@ public class LapTopController {
             summary = "Обновление товара" ,
             description = "Позволяет изменить данные товара по идентификатору"
     )
-//    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('users:write')")
     private ResponseEntity<?> updateLapTop(@PathVariable
                                             @Parameter(description = "Идентификатор товара")
                                                 Long id,
@@ -77,7 +78,7 @@ public class LapTopController {
             summary = "Удаление товара",
             description = "Позволяет удалить товар по идентификатору"
     )
-//    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('users:write')")
     private ResponseEntity<String> deleteLapTop(@PathVariable
                                             @Parameter(description = "Идентификатор товара")
                                                 Long id) {
