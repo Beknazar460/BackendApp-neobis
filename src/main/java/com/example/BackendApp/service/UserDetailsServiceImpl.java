@@ -1,23 +1,19 @@
-package com.example.BackendApp.service.impl;
+package com.example.BackendApp.service;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.repository.UserRepo;
-import com.example.BackendApp.security.UserSecurity;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.BackendApp.model.UserSecurity;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("userDetailsServiceImpl")
+@AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepo userRepo;
-
-    @Autowired
-    public UserDetailsServiceImpl(UserRepo userRepo) {
-        this.userRepo = userRepo;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

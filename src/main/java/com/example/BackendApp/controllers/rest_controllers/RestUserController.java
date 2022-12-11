@@ -2,7 +2,7 @@ package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.UserRequest;
-import com.example.BackendApp.service.impl.UserServiceImpl;
+import com.example.BackendApp.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,11 +21,11 @@ import java.util.List;
 )
 public class RestUserController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
     @Autowired
-    public RestUserController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    public RestUserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
@@ -37,7 +37,7 @@ public class RestUserController {
     public ResponseEntity<?> getUserId(@PathVariable
                                            @Parameter(description = "Идентификатор пользователя")
                                                 Long id) {
-        return userServiceImpl.getUserId(id);
+        return userService.getUserId(id);
     }
 
     @GetMapping
@@ -47,7 +47,7 @@ public class RestUserController {
     )
     @PreAuthorize("hasAuthority('users:read')")
     public List<UserEntity> getAllUsers() {
-        return userServiceImpl.getAllUsers();
+        return userService.getAllUsers();
     }
 
     @PostMapping
@@ -57,7 +57,7 @@ public class RestUserController {
     )
     @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
-        return userServiceImpl.createUser(userRequest);
+        return userService.createUser(userRequest);
     }
 
     @PutMapping("/{id}")
@@ -70,7 +70,7 @@ public class RestUserController {
                                             @Parameter(description = "Идентификатор пользователя")
                                                 Long id,
                                          @RequestBody UserRequest userRequest) {
-        return userServiceImpl.updateUser(id, userRequest);
+        return userService.updateUser(id, userRequest);
     }
 
     @DeleteMapping("/{id}")
@@ -82,6 +82,6 @@ public class RestUserController {
     public ResponseEntity<?> deleteUser(@PathVariable
                                             @Parameter(description = "Идентификатор пользователя")
                                                 Long id) {
-        return userServiceImpl.deleteUser(id);
+        return userService.deleteUser(id);
     }
 }

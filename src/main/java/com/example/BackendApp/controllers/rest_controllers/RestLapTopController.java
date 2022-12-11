@@ -2,11 +2,11 @@ package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.entity.LapTopEntity;
 import com.example.BackendApp.model.LapTopModel;
-import com.example.BackendApp.service.impl.LapTopServiceImpl;
+import com.example.BackendApp.service.LapTopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/laptops")
 @Tag(
         name = "Контроллер для управления записей товаров",
@@ -21,12 +22,7 @@ import java.util.List;
 )
 public class RestLapTopController {
 
-    private final LapTopServiceImpl lapTopService;
-
-    @Autowired
-    public RestLapTopController(LapTopServiceImpl lapTopService) {
-        this.lapTopService = lapTopService;
-    }
+    private final LapTopService lapTopService;
 
     @GetMapping
     @Operation(

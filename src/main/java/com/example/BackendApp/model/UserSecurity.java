@@ -1,4 +1,4 @@
-package com.example.BackendApp.security;
+package com.example.BackendApp.model;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.Status;

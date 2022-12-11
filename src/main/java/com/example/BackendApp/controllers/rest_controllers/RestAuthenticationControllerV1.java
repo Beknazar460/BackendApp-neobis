@@ -5,7 +5,7 @@ import com.example.BackendApp.model.AuthenticationRequestModel;
 import com.example.BackendApp.model.UserRequest;
 import com.example.BackendApp.repository.UserRepo;
 import com.example.BackendApp.security.JwtTokenProvider;
-import com.example.BackendApp.service.impl.UserServiceImpl;
+import com.example.BackendApp.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,10 +32,10 @@ public class RestAuthenticationControllerV1 {
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public RestAuthenticationControllerV1(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider, UserServiceImpl userService) {
+    public RestAuthenticationControllerV1(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userRepo = userRepo;
         this.jwtTokenProvider = jwtTokenProvider;

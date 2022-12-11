@@ -1,7 +1,7 @@
 package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.model.OrderModel;
-import com.example.BackendApp.service.impl.OrderServiceImpl;
+import com.example.BackendApp.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 )
 public class RestOrderController {
 
-    private final OrderServiceImpl orderService;
+    private final OrderService orderService;
 
     @Autowired
-    public RestOrderController(OrderServiceImpl orderService) {
+    public RestOrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 

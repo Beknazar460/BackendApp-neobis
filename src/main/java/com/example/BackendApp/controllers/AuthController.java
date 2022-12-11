@@ -1,8 +1,7 @@
 package com.example.BackendApp.controllers;
 
-import com.example.BackendApp.model.AuthenticationRequestModel;
 import com.example.BackendApp.model.UserRequest;
-import com.example.BackendApp.service.impl.UserServiceImpl;
+import com.example.BackendApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public AuthController(UserServiceImpl userService) {
+    public AuthController(UserService userService) {
         this.userService = userService;
     }
 
