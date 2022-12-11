@@ -1,7 +1,7 @@
 package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.entity.UserEntity;
-import com.example.BackendApp.model.UserRequest;
+import com.example.BackendApp.model.RegistrationRequest;
 import com.example.BackendApp.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @Tag (
         name = "Контроллер для управления записей пользователя",
         description = "В этом контроллере вы сможете добавлять, удалять, получать, а также обновлять данные пользователей"
@@ -56,8 +56,8 @@ public class RestUserController {
             description = "Позволяет создать пользователя введя его данные"
     )
     @PreAuthorize("hasAuthority('users:write')")
-    public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
-        return userService.createUser(userRequest);
+    public ResponseEntity<String> createUser(@RequestBody RegistrationRequest registrationRequest) {
+        return userService.createUser(registrationRequest);
     }
 
     @PutMapping("/{id}")
@@ -69,8 +69,8 @@ public class RestUserController {
     public ResponseEntity<?> updateUser(@PathVariable
                                             @Parameter(description = "Идентификатор пользователя")
                                                 Long id,
-                                         @RequestBody UserRequest userRequest) {
-        return userService.updateUser(id, userRequest);
+                                         @RequestBody RegistrationRequest registrationRequest) {
+        return userService.updateUser(id, registrationRequest);
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,6 @@
 package com.example.BackendApp.controllers;
 
-import com.example.BackendApp.model.UserRequest;
+import com.example.BackendApp.model.RegistrationRequest;
 import com.example.BackendApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,13 +26,13 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String getRegistrationPage(@ModelAttribute("user") UserRequest userRequest) {
+    public String getRegistrationPage(@ModelAttribute("user") RegistrationRequest registrationRequest) {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String register(@ModelAttribute("user") UserRequest userRequest) {
-        userService.createUser(userRequest);
+    public String register(@ModelAttribute("user") RegistrationRequest registrationRequest) {
+        userService.createUser(registrationRequest);
         return "redirect:/auth/login";
     }
 }

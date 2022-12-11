@@ -1,19 +1,13 @@
 package com.example.BackendApp.model;
 
 import com.example.BackendApp.entity.UserEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 public class UserModel {
 
     private Long id;

@@ -2,7 +2,7 @@ package com.example.BackendApp.controllers.rest_controllers;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.model.AuthenticationRequestModel;
-import com.example.BackendApp.model.UserRequest;
+import com.example.BackendApp.model.RegistrationRequest;
 import com.example.BackendApp.repository.UserRepo;
 import com.example.BackendApp.security.JwtTokenProvider;
 import com.example.BackendApp.service.UserService;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class RestAuthenticationControllerV1 {
 
     private final AuthenticationManager authenticationManager;
@@ -47,8 +47,8 @@ public class RestAuthenticationControllerV1 {
             summary = "Создание пользователя",
             description = "Позволяет создать пользователя введя его данные"
     )
-    public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
-        return userService.createUser(userRequest);
+    public ResponseEntity<String> createUser(@RequestBody RegistrationRequest registrationRequest) {
+        return userService.createUser(registrationRequest);
     }
 
     @PostMapping("/login")

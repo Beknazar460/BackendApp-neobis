@@ -2,7 +2,7 @@ package com.example.BackendApp.service;
 
 import com.example.BackendApp.entity.UserEntity;
 import com.example.BackendApp.repository.UserRepo;
-import com.example.BackendApp.model.UserSecurity;
+import com.example.BackendApp.security.UserSecurity;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

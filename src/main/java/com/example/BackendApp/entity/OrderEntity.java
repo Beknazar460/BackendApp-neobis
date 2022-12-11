@@ -1,19 +1,21 @@
 package com.example.BackendApp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "orders")
 public class OrderEntity {
+
+    public OrderEntity(String titleOfProduct, String priceOfProduct, UserEntity user, LaptopEntity lapTop) {
+        this.titleOfProduct = titleOfProduct;
+        this.priceOfProduct = priceOfProduct;
+        this.user = user;
+        this.lapTop = lapTop;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +30,6 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "laptops_id")
-    private LapTopEntity lapTop;
+    private LaptopEntity lapTop;
 
 }

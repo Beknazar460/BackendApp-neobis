@@ -7,12 +7,15 @@ import java.util.List;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "laptops")
-public class LapTopEntity {
+public class LaptopEntity {
+
+    public LaptopEntity(String title, String price) {
+        this.title = title;
+        this.price = price;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

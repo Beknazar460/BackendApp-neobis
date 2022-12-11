@@ -9,11 +9,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class UserEntity {
+
+    public UserEntity(String email, String userName, String userPass, LocalDateTime dateOfRegister, Role role, Status status) {
+        this.email = email;
+        this.userName = userName;
+        this.userPass = userPass;
+        this.dateOfRegister = dateOfRegister;
+        this.role = role;
+        this.status = status;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

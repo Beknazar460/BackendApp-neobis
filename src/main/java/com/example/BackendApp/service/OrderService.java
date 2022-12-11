@@ -2,7 +2,7 @@ package com.example.BackendApp.service;
 
 import com.example.BackendApp.entity.OrderEntity;
 import com.example.BackendApp.model.OrderModel;
-import com.example.BackendApp.repository.LapTopRepo;
+import com.example.BackendApp.repository.LaptopRepo;
 import com.example.BackendApp.repository.OrderRepo;
 import com.example.BackendApp.repository.UserRepo;
 import lombok.AllArgsConstructor;
@@ -15,16 +15,13 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
     private final OrderRepo orderRepo;
-    private final LapTopRepo lapTopRepo;
+    private final LaptopRepo lapTopRepo;
     private final UserRepo userRepo;
 
     public ResponseEntity<?> createOrder(OrderModel orderModel) {
         if (userRepo.findById(orderModel.getUsersId()).isPresent() && lapTopRepo.findById(orderModel.getLaptopsId()).isPresent()) {
-            OrderEntity orderEntity = new OrderEntity();
-            orderEntity.setTitleOfProduct(orderModel.getTitleOfProduct());
-            orderEntity.setPriceOfProduct(orderModel.getPriceOfProduct());
-            orderEntity.setUser(userRepo.findById(orderModel.getUsersId()).get());
-            orderEntity.setLapTop(lapTopRepo.findById(orderModel.getLaptopsId()).get());
+            OrderEntity orderEntity = new OrderEntity(orderModel.getTitleOfProduct(), orderModel.getPriceOfProduct(),
+                    userRepo.findById(orderModel.getUsersId()).get(), lapTopRepo.findById(orderModel.getLaptopsId()).get());
             orderRepo.save(orderEntity);
             return ResponseEntity.ok("Order is created");
         }

@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/orders")
+@RequestMapping(path = "/api/v1/orders")
 @Tag (
         name = "Контроллер для управления с заказами",
         description = "В этом контроллере вы сможете создавать и удалять заказы"

@@ -1,11 +1,9 @@
 package com.example.BackendApp.model;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class AuthenticationRequestModel {
-
     private String email;
     private String password;
-
 }

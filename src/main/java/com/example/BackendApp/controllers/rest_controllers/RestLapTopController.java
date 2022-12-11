@@ -1,8 +1,8 @@
 package com.example.BackendApp.controllers.rest_controllers;
 
-import com.example.BackendApp.entity.LapTopEntity;
-import com.example.BackendApp.model.LapTopModel;
-import com.example.BackendApp.service.LapTopService;
+import com.example.BackendApp.entity.LaptopEntity;
+import com.example.BackendApp.model.LaptopModel;
+import com.example.BackendApp.service.LaptopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,14 +15,14 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/laptops")
+@RequestMapping("/api/v1/laptops")
 @Tag(
         name = "Контроллер для управления записей товаров",
         description = "В этом контроллере вы сможете добавлять, удалять, получать, а также обновлять данные товара"
 )
 public class RestLapTopController {
 
-    private final LapTopService lapTopService;
+    private final LaptopService lapTopService;
 
     @GetMapping
     @Operation(
@@ -30,7 +30,7 @@ public class RestLapTopController {
             description = "Позволяет получить всех товаров"
     )
     @PreAuthorize("hasAuthority('users:read')")
-    private List<LapTopEntity> getAllLapTops() {
+    private List<LaptopEntity> getAllLapTops() {
         return lapTopService.getALlLapTops();
     }
 
@@ -52,7 +52,7 @@ public class RestLapTopController {
             description = "Позволяет создать товар введя его данные"
     )
     @PreAuthorize("hasAuthority('users:write')")
-    private ResponseEntity<?> createLapTop(@RequestBody LapTopModel lapTopModel) {
+    private ResponseEntity<?> createLapTop(@RequestBody LaptopModel lapTopModel) {
         return lapTopService.createLapTop(lapTopModel);
     }
 
@@ -65,7 +65,7 @@ public class RestLapTopController {
     private ResponseEntity<?> updateLapTop(@PathVariable
                                            @Parameter(description = "Идентификатор товара")
                                            Long id,
-                                           @RequestBody LapTopModel lapTopModel) {
+                                           @RequestBody LaptopModel lapTopModel) {
         return lapTopService.updateLapTop(id, lapTopModel);
     }
 
