@@ -7,6 +7,7 @@ import com.example.BackendApp.repository.UserRepo;
 import com.example.BackendApp.security.JwtTokenProvider;
 import com.example.BackendApp.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/auth")
 public class RestAuthenticationControllerV1 {
 
@@ -33,14 +35,6 @@ public class RestAuthenticationControllerV1 {
     private final UserRepo userRepo;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
-
-    @Autowired
-    public RestAuthenticationControllerV1(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider, UserService userService) {
-        this.authenticationManager = authenticationManager;
-        this.userRepo = userRepo;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.userService = userService;
-    }
 
     @PostMapping("/registration")
     @Operation(

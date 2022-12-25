@@ -50,16 +50,6 @@ public class RestUserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping
-    @Operation(
-            summary = "Создание пользователя",
-            description = "Позволяет создать пользователя введя его данные"
-    )
-    @PreAuthorize("hasAuthority('users:write')")
-    public ResponseEntity<String> createUser(@RequestBody RegistrationRequest registrationRequest) {
-        return userService.createUser(registrationRequest);
-    }
-
     @PutMapping("/{id}")
     @Operation(
             summary = "Обновление пользователя",

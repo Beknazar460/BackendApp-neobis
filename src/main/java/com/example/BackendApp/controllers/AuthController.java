@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/api/v2/auth")
 public class AuthController {
 
     private final UserService userService;
@@ -33,6 +33,6 @@ public class AuthController {
     @PostMapping("/registration")
     public String register(@ModelAttribute("user") RegistrationRequest registrationRequest) {
         userService.createUser(registrationRequest);
-        return "redirect:/auth/login";
+        return "redirect:/api/v2/auth/login";
     }
 }

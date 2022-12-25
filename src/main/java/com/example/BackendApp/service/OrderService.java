@@ -1,7 +1,7 @@
 package com.example.BackendApp.service;
 
 import com.example.BackendApp.entity.OrderEntity;
-import com.example.BackendApp.model.OrderModel;
+import com.example.BackendApp.model.OrderRequest;
 import com.example.BackendApp.repository.LaptopRepo;
 import com.example.BackendApp.repository.OrderRepo;
 import com.example.BackendApp.repository.UserRepo;
@@ -18,10 +18,10 @@ public class OrderService {
     private final LaptopRepo lapTopRepo;
     private final UserRepo userRepo;
 
-    public ResponseEntity<?> createOrder(OrderModel orderModel) {
-        if (userRepo.findById(orderModel.getUsersId()).isPresent() && lapTopRepo.findById(orderModel.getLaptopsId()).isPresent()) {
-            OrderEntity orderEntity = new OrderEntity(orderModel.getTitleOfProduct(), orderModel.getPriceOfProduct(),
-                    userRepo.findById(orderModel.getUsersId()).get(), lapTopRepo.findById(orderModel.getLaptopsId()).get());
+    public ResponseEntity<?> createOrder(OrderRequest orderRequest) {
+        if (userRepo.findById(orderRequest.getUsersId()).isPresent() && lapTopRepo.findByTitle(orderRequest.getTitleOfProduct()).isPresent()) {
+            OrderEntity orderEntity = new OrderEntity(orderRequest.getTitleOfProduct(), lapTopRepo.findByTitle(orderRequest.getTitleOfProduct()).get().getPrice(),
+                    userRepo.findById(orderRequest.getUsersId()).get());
             orderRepo.save(orderEntity);
             return ResponseEntity.ok("Order is created");
         }

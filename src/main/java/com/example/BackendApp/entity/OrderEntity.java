@@ -10,11 +10,10 @@ import javax.persistence.*;
 @Table(name = "orders")
 public class OrderEntity {
 
-    public OrderEntity(String titleOfProduct, String priceOfProduct, UserEntity user, LaptopEntity lapTop) {
+    public OrderEntity(String titleOfProduct, String priceOfProduct, UserEntity user) {
         this.titleOfProduct = titleOfProduct;
         this.priceOfProduct = priceOfProduct;
         this.user = user;
-        this.lapTop = lapTop;
     }
 
     @Id
